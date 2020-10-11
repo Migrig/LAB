@@ -1,54 +1,74 @@
+﻿//Григорович Константин ИВТ-8, 1 вариант , 1 задание , 2 программа
+
+/*Преобразование: 1D → 2D. Одномерный массив из 25 вещественных чисел необходимо
+разложить по двумерной сетке 5х5 слева направо и сверху вниз, но первый элемент на
+каждой строке должен содержать сумму остальных четырех.
+Инициализация: заполнить массив числами x[n] = n ∙ sin(πn/25), n – индекс элемента.
+Вывод на экран: на каждый элемент массива отвести 10 позиций.*/
+
 #include<iostream>
+#include <iomanip>
 #include <stdio.h>
 #include <math.h>
+#include <cstring>
 
-using namespace std; // ����� �� ���������� std::cin
+using namespace std; // чтобы не записывать std::cin
 
-double* mas1d = new double[25]; //��������� �������
-int per_i = 5;//i
-int per_j = 5;//j
-int z;//������� �������
-double mas2d[5][5];//��������� ������
-
-void processArray(double, int);
-
-void processArray(double* mas1d, int z)
+int i;//Индекс элемента
+int rows = 5;//Строки
+int cols = 5;//Столбцы
+float* arr = new float[25];//Место под массив
+void arrayA(float* arr)
 {
-	for (int z = 0; z < 25; z++)
+	for (i = 0; i < 25; i++)
 	{
-		mas1d[z] = z * sin((3.14 * z) / 25);
+		arr[i] = i * sin((3.14 * i) / 25);
+		cout << setw(10) << arr[i];
+	}
+}
+float** array2d(float** arr2d, float* arr, size_t  rows, size_t  cols)
+{
+	int coun = 0;
+	for (int i = 0; i < rows; i++)
+	{
+		for (int j = 0; j < cols; j++)
+		{
+			*(*(arr2d + i) + j) = *(arr + i * cols + j);
+			cout << setw(10) << arr2d[i][j];
+			//coun++;
+		}
+		coun++;
+		cout << endl;
+	}
+	return arr2d;
+}
+void summ(float** arr2d)
+{
+	for (int i = 0; i < 5; i++)
+	{
+		for (int j = 0; j < 5; j++)
+		{
+			cout << setw(10);
+			arr2d[i][0] = arr2d[i][j + 1] + arr2d[i][j + 2] + arr2d[i][j + 3] + arr2d[i][j + 4];
+			cout << arr2d[i][j];
+		}
+		cout << endl;
 	}
 }
 int main()
 {
-	setlocale(LC_ALL, "Russian");//������� ���� � �������
-	cout << "������ ������ :" << endl;
-	processArray(mas1d, z);
+	setlocale(LC_ALL, "Russian");//Русский язык в консоли
+	float** arr2d = new float* [rows];//Выделяем место под 2Д
+	for (int i = 0; i < rows; i++)
+	{
+		arr2d[i] = new float[cols];
+	}
+	arrayA(arr);
 	cout << endl;
-	for (int z = 0; z < 25; z++)
-	{
-		cout << mas1d[z];
-	}
+	cout << "Массив создан" << endl;
+	array2d(arr2d, arr, rows, cols);
 	cout << endl;
-	for (per_i = 0; per_i < 5; per_i++)
-	{
-		for (per_j = 0; per_j < 5; per_j++)
-		{
-			mas2d[per_i][per_j] = mas1d[z];
-			z++;
-		}
-	}
-	cout << "=>";
-	for (per_i = 0; per_i < 5; per_i++)
-	{
-		for (per_j = 0; per_j < 5; per_j++)
-		{
-			cout.width(10);
-			mas2d[per_i][0] = mas2d[per_i][per_j + 1] + mas2d[per_i][per_j + 2] + mas2d[per_i][per_j + 3] + mas2d[per_i][per_j + 4];
-			cout << mas2d[per_i][per_j];
-		}
-		cout << endl;
-		cout << "=>";
-	}
+	cout << "Массив, с 1 строкой - суммой всех элементов строки" << endl;
+	summ(arr2d);
 	return 0;
 }

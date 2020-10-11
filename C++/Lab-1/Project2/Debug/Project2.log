@@ -1,2 +1,5 @@
 ﻿  1.2.cpp
+C:\Users\HP255G7\source\repos\Lab-1\Project2\1.2.cpp(25,14): warning C4244: =: преобразование "double" в "float", возможна потеря данных
+C:\Users\HP255G7\source\repos\Lab-1\Project2\1.2.cpp(33,20): warning C4018: <: несоответствие типов со знаком и без знака
+C:\Users\HP255G7\source\repos\Lab-1\Project2\1.2.cpp(35,21): warning C4018: <: несоответствие типов со знаком и без знака
   Project2.vcxproj -> C:\Users\HP255G7\source\repos\Lab-1\Debug\1.2.exe
